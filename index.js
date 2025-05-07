@@ -24,7 +24,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', async (req, res) => {
     try {
-        const allBlogs = await Blog.find({}).sort({ createdAt: -1 }); // Await the query
+        const allBlogs = await Blog.find({}).sort({ createdAt: -1 }).populate('createdBy'); // Populate createdBy field
         res.render('home', { user: req.user, blogs: allBlogs }); // Pass resolved data to the view
     } catch (err) {
         console.error(err.message);

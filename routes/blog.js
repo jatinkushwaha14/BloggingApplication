@@ -24,8 +24,8 @@ router.get('/addblog', (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const blog = await Blog.findById(req.params.id).populate('createdBy'); 
-        const comments = await Comment.find({blogID : req.params.id} ).populate('createdBy');  // Populate createdBy field with user name
+        const blog = await Blog.findById(req.params.id).populate('createdBy'); // Populate createdBy field
+        const comments = await Comment.find({ blogID: req.params.id }).populate('createdBy'); // Populate createdBy field in comments
         if (!blog) {
             return res.status(404).send('Blog not found');
         }
@@ -34,9 +34,7 @@ router.get('/:id', async (req, res) => {
         console.error(err.message);
         res.status(500).send('Internal Server Error');
     }
-}
-);
-
+});
 router.post('/', upload.single('coverimage'), async (req, res) => {
     console.log('req.user:', req.user); // Debugging log
     if (!req.user) {
