@@ -21,10 +21,9 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const token = await User.matchpassword(email, password); // Call the static method on the User model
+        const token = await User.matchpasswordandgeneratetoken(email, password); // Generate token
         if (token) {
-            // console.log(token);
-            res.cookie('token',token).redirect('/'); // Redirect to the home page or any other page
+            res.cookie('token', token).redirect('/'); // Set token as a cookie and redirect
         }
     } catch (err) {
         console.error(err.message);
